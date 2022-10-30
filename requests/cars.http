@@ -1,0 +1,41 @@
+
+
+###
+GET  http://localhost:3400/api/cars
+###
+POST  http://localhost:3400/api/cars
+Content-Type: application/json
+
+{
+    "description":"auto semi nuevo bien cuidado",
+    "owner":"Jorge Bustamante Dos",
+    "brand": "Changan",
+    "year":"2015",
+    "carClass":"sedan",
+    "model": "NEW ALSVIN",
+    "images": [
+        "https://derco-pe-prod.s3.amazonaws.com/images/carcontent/2021-05-06%2012%3A56%3A35-exterior_2-min.jpg",
+        "https://derco-pe-prod.s3.amazonaws.com/images/carcontent/2021-05-06%2012%3A58%3A19-exterior_4-min.jpg"
+    ]
+}
+
+###
+GET  http://localhost:3400/api/cars/617b4dc238dd1a6884547b0a
+
+
+###
+GET  http://localhost:3400/api/cars/slug/jorge-bustamante-changan-new-alsvin-2015
+
+
+###
+POST  http://localhost:3400/api/cars/filters
+Content-Type: application/json
+
+{ 
+    "brands":[ "Renault" , "Mazda"],
+    "carClasses":["jeep"],
+    "years":[]
+}
+
+###
+DELETE   http://localhost:3400/api/cars/617b4dc238dd1a6884547b0a
