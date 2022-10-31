@@ -6,51 +6,92 @@ const Client = db.client
 
 const Op = db.Sequelize.Op;
 
+export const addClient = async (req, res) => {
+
+    let data = {
+        name: req.body.name,
+        rut: req.body.rut,
+        email: req.body.email,
+        address: req.body.address
+    }
+    if(await getClientByRut(req.body.rut)){
+        res.status(409).send({ message: 'Rut is already used' })
+        return
+    }
+    if(await getClientByEmail(req.body.email)){
+        res.status(409).send({ message: 'Email is already used' })
+        return
+    }
+    const client = await Client.create(data)
+    res.status(200).send(client)
+    console.log(client);
+}
 
 
-export const findAllClients = async( req, res )=>{
-    // const cars = await Car.find();
-    // const clients = [{name:"pedro"}] 
+
+
+export const findAllClients = async (req, res) => {
     const clients = await Client.findAll();
     res.json(clients);
 }
 
-// export const storeCar = async (req, res) => {
+export const getOneClient = async (req, res) => {
+    try {
+        let id = req.params.id
+        const client = await Client.findOne({ where: { id: id } })
+        if (client == null) {
+            res.status(404).send({ message: 'Client not found' })
+            return
+        }
+        res.status(200).send(client)
 
-//     let rawSlug = `${req.body.owner} ${req.body.brand} ${req.body.model} ${req.body.year}`;
-//     const slug = slugify(rawSlug.toLowerCase());
-//     const newCar = new Car ({
-//         description: req.body.description,
-//         owner: req.body.owner,
-//         brand: req.body.brand,
-//         year: req.body.year,
-//         images: req.body.images,
-//         slug,
-//         model: req.body.model,
-//         carClass: req.body.carClass,
-//     });
-//     const  carSaved = await newCar.save();
-//     res.json(carSaved);
-// }
+        console.log(client);
+    } catch (error) {
+        res.status(404).send({ message: 'Client not found', error })
+    }
 
-// export const findOneCar = async (req, res) => {
-//     const car = await  Car.findById(req.params.id);
-//     res.json(car);
-// }
+}
 
 
+export const updateClient = async (req, res) => {
 
-// export const findOneCarBySlug = async (req, res) => {
-//     const car = await  Car.findOne({slug: req.params.slug});
-//     if(!car) res.status(404)
-//     res.json(car);
-// } 
+        let id = req.params.id
+        const existClient = await Client.findOne({ where: { id: id } })
+        if (existClient == null) {
+            res.status(404).send({ message: 'Client not found' })
+            return
+        }
+        if(await getClientByRut(existClient.rut)){
+            res.status(409).send({ message: 'Rut is already used' })
+            return
+        }
+        if(await getClientByEmail(existClient.email)){
+            res.status(409).send({ message: 'Email is already used' })
+            return
+        }
+        const client = await Client.update(req.body, { where: { id: id } })
+        res.status(200).send(client)
+}
 
 
+export const deleteClient = async (req, res) => {
 
-// export const deleteCar = async (req, res) => {
-//     const car = await Car.findByIdAndDelete(req.params.id)
-//     res.json({
-//         message : `${car.title}  were deleted successfuly`
-//     });
-// }
+    let id = req.params.id
+    await Client.destroy({ where: { id: id } })
+    res.status(200).send(`Client deleted successfully`)
+}
+
+const getClientByRut = async (rut) =>{
+    const client = await Client.findOne({ where: { rut: rut } })
+    console.log(client)
+    if(!client) return false
+    return client
+}
+
+const getClientByEmail = async (email) =>{
+    const client = await Client.findOne({ where: { email: email } })
+    if(!client) return false
+    return client
+}
+
+

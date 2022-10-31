@@ -8,15 +8,13 @@ const router = Router();
 
 router.get('/', ClientController.findAllClients);
 
-// router.get('/:id', ClientController.findOneCar);
+router.post("/", ClientController.addClient)
 
-// router.get('/slug/:slug', ClientController.findOneCarBySlug);
+router.get("/:id", ClientController.getOneClient)
 
-// router.post('/', ClientController.storeCar );
+router.put("/:id", ClientController.updateClient)
 
-// router.post('/filters', ClientController.findAllCarsByFilters );
-
-// router.delete('/:id', ClientController.deleteCar);
+router.delete("/:id", ClientController.deleteClient)
 
 
 export default router;

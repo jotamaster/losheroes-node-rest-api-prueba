@@ -1,18 +1,26 @@
 module.exports = (sequelize, Sequelize) => {
 
-    const Client = sequelize.define('client', {
+    const Client = sequelize.define('clients', {
 
-        title: {
-            type: Sequelize.STRING
+        name: {
+            type: Sequelize.STRING,
+            allowNull:false,
+            
         },
-        subtitle: {
-            type: Sequelize.STRING
+        rut: {
+            type: Sequelize.STRING,
+            allowNull:false,
+            unique:true
         },
-        author: {
-            type: Sequelize.STRING
+        email: {
+            type: Sequelize.STRING,
+            allowNull:false,
+            unique:true,
+            validate:{isEmail:true}
         },
-        published: {
-            type: Sequelize.BOOLEAN
+        address: {
+            type: Sequelize.STRING,
+            allowNull:false,
         }
     });
     return Client;
