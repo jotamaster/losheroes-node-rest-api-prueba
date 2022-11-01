@@ -1,9 +1,10 @@
 import Sequelize from 'sequelize'
 import config from './../config'
-const sequelize = new Sequelize('losheroesnode','root', config.password, {
-    host: config.host,
+console.log(config)
+const sequelize = new Sequelize(config.database,config.user, config.password, {
+    host: 'sql.freedb.tech',
     dialect: 'mysql',
-    operatorsAliases: false,
+    operatorsAliases: 0,
 
     pool: {
         max: 5,
