@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
 import config from './../config'
 console.log(config)
-const sequelize = new Sequelize(config.database,config.user, config.password, {
+const sequelize = new Sequelize(config.database, config.user, config.password, {
     host: 'sql.freedb.tech',
     dialect: 'mysql',
     operatorsAliases: 0,

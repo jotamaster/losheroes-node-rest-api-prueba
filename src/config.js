@@ -8,7 +8,7 @@ export default {
     database: process.env.DATABASE,
     user: process.env.USER,
     password: process.env.PASSWORD,
-    port: process.env.PORT,
+    dbport: process.env.DBPORT,
     host: process.env.HOST,
 
 }
