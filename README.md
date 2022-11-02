@@ -1,5 +1,6 @@
 
 
+
 # Prueba Técnica
 
 Este repositorio tiene como  proposito demostrar conocimientos técnicos en técnologias de desarrollo de software.
@@ -56,11 +57,9 @@ Modo develop
 npm start
 ```
 
-```
 
 ## Descripción de ENDPOINTS
 ### clients
-<hr>
 
 GET:  "/api/clients", lista todos los clientes.
 
