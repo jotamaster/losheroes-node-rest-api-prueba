@@ -61,11 +61,16 @@ export const updateClient = async (req, res) => {
             res.status(404).send({ message: 'Client not found' })
             return
         }
-        if(await getClientByRut(existClient.rut)){
+        let userByRut = await getClientByRut(req.body.rut)
+        console.log(userByRut.rut,'---',existClient.rut)
+
+        if(userByRut && userByRut.rut != existClient.rut){
             res.status(409).send({ message: 'Rut is already used' })
             return
         }
-        if(await getClientByEmail(existClient.email)){
+
+        let userByEmail = await getClientByEmail(existClient.email)
+        if(userByEmail && userByEmail.email != req.body.email){
             res.status(409).send({ message: 'Email is already used' })
             return
         }
